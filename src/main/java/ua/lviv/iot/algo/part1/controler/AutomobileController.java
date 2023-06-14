@@ -34,7 +34,7 @@ public class AutomobileController {
             .status(HttpStatusCode.valueOf(404)).build();
 
     @GetMapping
-    public ResponseEntity getAutomobiles() {
+    public ResponseEntity getAllAutomobiles() {
         List<AutomobileDTO> response = new LinkedList<>();
         for (Automobile automobile : automobileService.giveAll()) {
             response.add(formatAutomobile(automobile));
@@ -43,7 +43,7 @@ public class AutomobileController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity getAutomobiles(
+    public ResponseEntity getAutomobile(
             final @PathVariable("id") int automobileId) {
         if (!automobileService.hasAutomobileWith(automobileId)) {
             return FAILURE;
