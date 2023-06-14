@@ -34,16 +34,16 @@ public class AutomobileController {
             .status(HttpStatusCode.valueOf(404)).build();
 
     @GetMapping
-    public List<AutomobileDTO> getAutomobiles() {
+    public ResponseEntity getAutomobiles() {
         List<AutomobileDTO> response = new LinkedList<>();
-        for (Automobile stone : automobileService.giveAll()) {
-            response.add(formatAutomobile(stone));
+        for (Automobile automobile : automobileService.giveAll()) {
+            response.add(formatAutomobile(automobile));
         }
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getAutomobiles(
+    public ResponseEntity getAutomobiles(
             final @PathVariable("id") int automobileId) {
         if (!automobileService.hasAutomobileWith(automobileId)) {
             return FAILURE;
@@ -54,11 +54,10 @@ public class AutomobileController {
     }
 
     @PostMapping
-    public AutomobileDTO createAutomobile(
+    public ResponseEntity createAutomobile(
             final @RequestBody Automobile automobile) {
-        automobileService.addAutomobile(automobile);
-        return formatAutomobile(automobileService.giveAutomobile(
-                automobile.getId()));
+        return ResponseEntity.ok(formatAutomobile(
+                automobileService.addAutomobile(automobile)));
     }
 
     @DeleteMapping(path = "/{id}")
@@ -72,7 +71,7 @@ public class AutomobileController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity updateMethStone(
+    public ResponseEntity updateAutomobile(
             final @PathVariable("id") int automobileId,
             final @RequestBody Automobile automobile) {
         if (automobileService.hasAutomobileWith(automobileId)) {

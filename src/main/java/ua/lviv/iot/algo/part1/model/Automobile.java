@@ -1,11 +1,8 @@
 package ua.lviv.iot.algo.part1.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-
+@ToString
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,5 +27,13 @@ public class Automobile {
                 + getEndOfRent() + ";"
                 + getProblems();
 
+    }
+
+    public Automobile(final String[] data) {
+        id = Integer.parseInt(data[0]);
+        model = data[1];
+        address = data[2];
+        endOfRent = data[3];
+        problems = data[4];
     }
 }

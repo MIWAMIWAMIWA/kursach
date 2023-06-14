@@ -1,21 +1,23 @@
 package ua.lviv.iot.algo.part1.service;
 
-
 import org.springframework.stereotype.Service;
 import ua.lviv.iot.algo.part1.fileManager.AutomobileWriter;
 import ua.lviv.iot.algo.part1.model.Automobile;
 
 import javax.annotation.PreDestroy;
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
-
 public class AutomobileService {
 
-    private final AutomobileWriter automobileWriter = new AutomobileWriter();
+    private final AutomobileWriter automobileWriter = new AutomobileWriter(
+            "src" + File.separator
+            + "main" + File.separator
+            + "resources" + File.separator);
 
     private HashMap<Integer, Automobile> automobiles
             = automobileWriter.getAllEntries();
