@@ -22,9 +22,8 @@ public class AutomobileController {
     private AutomobileDTO formatAutomobile(final Automobile automobile) {
         return new AutomobileDTO(automobile.getId(),
                 automobile.getModel(),
-                automobile.getAddress(),
-                automobile.getEndOfRent(),
-                automobile.getProblems());
+                automobile.getStartOfRent(),
+                automobile.getEndOfRent());
     }
 
     public static final ResponseEntity OK = ResponseEntity
@@ -63,10 +62,12 @@ public class AutomobileController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity deleteAutomobile(
             final @PathVariable("id") int automobileId) {
-        if (automobileService.deleteAutomobile(automobileId) == null) {
+        if (!automobileService.hasAutomobileWith(automobileId)) {
             return FAILURE;
         } else {
-            return OK;
+           return ResponseEntity.ok(formatAutomobile(
+                   automobileService.deleteAutomobile(automobileId)));
+
         }
     }
 

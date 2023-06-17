@@ -16,8 +16,8 @@ public class AutomobileService {
 
     private final AutomobileWriter automobileWriter = new AutomobileWriter(
             "src" + File.separator
-            + "main" + File.separator
-            + "resources" + File.separator);
+                    + "main" + File.separator
+                    + "resources" + File.separator);
 
     private HashMap<Integer, Automobile> automobiles
             = automobileWriter.getAllEntries();

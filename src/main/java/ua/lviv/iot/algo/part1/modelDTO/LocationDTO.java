@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AutomobileDTO {
+public class LocationDTO {
     private int id;
-    private String model;
-    private String startOfRent;
-    private String endOfRent;
-
+    private String name;
+    private List<Integer> carsId;
 }

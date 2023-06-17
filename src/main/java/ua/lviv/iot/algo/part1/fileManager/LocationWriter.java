@@ -1,39 +1,40 @@
 package ua.lviv.iot.algo.part1.fileManager;
 
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
-import lombok.Getter;
 import ua.lviv.iot.algo.part1.model.Automobile;
+import ua.lviv.iot.algo.part1.model.Location;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
-@Getter
-public class AutomobileWriter {
+public class LocationWriter {
     private final String directory;
 
-    public AutomobileWriter(final String path) {
+    public LocationWriter(final String path) {
         directory = path;
 
     }
 
-    public void writeAutomobile(final Automobile automobile) {
+    public void writeLocation(final Location location) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
         Date date = new Date();
-        String file = directory + "AutomobilesDB" + File.separator
-                + "automobile_" + dateFormat.format(date) + ".csv";
+        String file = directory + "LocationsDB" + File.separator
+                + "location_" + dateFormat.format(date) + ".csv";
         boolean exists = new File(file).exists();
         try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(
                 new FileOutputStream(file, true),
                 StandardCharsets.UTF_8))) {
             if (!exists) {
-                writer.writeNext(automobile.getHeaders().split(";"));
+                writer.writeNext(location.getHeaders().split(";"));
             }
-            writer.writeNext(automobile.toCSV().split(";"));
+            writer.writeNext(location.toCSV().split(";"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,7 +42,7 @@ public class AutomobileWriter {
 
     public void savingLastId(final int id) {
         try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(
-                new FileOutputStream(directory + "AutomobilesDB"
+                new FileOutputStream(directory + "LocationsDB"
                         + File.separator + "id.txt", false),
                 StandardCharsets.UTF_8))) {
             writer.writeNext(String.valueOf(id).split(","));
@@ -52,8 +53,8 @@ public class AutomobileWriter {
 
     public int getLastId() {
         try (CSVReader csvReader = new CSVReaderBuilder(new InputStreamReader(
-                new FileInputStream(directory
-                        + "AutomobilesDB" + File.separator + "id.txt"),
+                new FileInputStream(directory + "LocationsDB"
+                        + File.separator + "id.txt"),
                 StandardCharsets.UTF_8)).build()) {
             List<String[]> allData = csvReader.readAll();
             return Integer.parseInt(allData.get(0)[0]);
@@ -64,15 +65,15 @@ public class AutomobileWriter {
 
     }
 
-    public HashMap<Integer, Automobile> readEntries(
+    public HashMap<Integer, Location> readEntries(
             final String file) {
-        HashMap<Integer, Automobile> data = new HashMap<>();
+        HashMap<Integer, Location> data = new HashMap<>();
         try (CSVReader csvReader = new CSVReaderBuilder(new InputStreamReader(
                 new FileInputStream(file), StandardCharsets.UTF_8))
                 .withSkipLines(1).build()) {
             List<String[]> allData = csvReader.readAll();
             for (String[] row : allData) {
-                data.put(Integer.parseInt(row[0]), new Automobile(row));
+                data.put(Integer.parseInt(row[0]), new Location(row));
             }
 
         } catch (Exception e) {
@@ -83,13 +84,13 @@ public class AutomobileWriter {
     }
 
     public List<String> getFilesFromDirectory() {
-        File folder = new File(directory + "AutomobilesDB" + File.separator);
+        File folder = new File(directory + "LocationsDB" + File.separator);
         String[] fileNames = folder.list();
         assert fileNames != null : "no files was found";
         List<String> files = new LinkedList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM_yy");
         Date date = new Date();
-        String pattern = "automobile_" + "\\d{2}"
+        String pattern = "location_" + "\\d{2}"
                 + "_" + dateFormat.format(date) + ".csv";
         for (String file : fileNames) {
             if (file.matches(pattern)) {
@@ -99,31 +100,31 @@ public class AutomobileWriter {
         return files;
     }
 
-    public HashMap<Integer, Automobile> getAllEntries() {
-        HashMap<Integer, Automobile> finalMap = new HashMap<>();
+    public HashMap<Integer, Location> getAllEntries() {
+        HashMap<Integer, Location> finalMap = new HashMap<>();
         for (String file : getFilesFromDirectory()) {
-            HashMap<Integer, Automobile> tmpMap = readEntries(
-                    directory + "AutomobilesDB" + File.separator + file);
+            HashMap<Integer, Location> tmpMap = readEntries(
+                    directory + "LocationsDB" + File.separator + file);
             finalMap.putAll(tmpMap);
         }
         return finalMap;
     }
 
     public String findId(final int id) {
-        String idLocation = null;
+        String idPath = null;
         for (String file : getFilesFromDirectory()) {
-            HashMap<Integer, Automobile> tmpMap = readEntries(
-                    directory + "AutomobilesDB" + File.separator + file);
+            HashMap<Integer, Location> tmpMap = readEntries(
+                    directory + "LocationsDB" + File.separator + file);
             if (tmpMap.containsKey(id)) {
-                idLocation = file;
+                idPath = file;
                 break;
             }
         }
-        return idLocation;
+        return idPath;
     }
 
     public void rewriteFile(final String fullPath,
-                            final HashMap<Integer, Automobile> data) {
+                            final HashMap<Integer, Location> data) {
         try {
             File file = new File(fullPath);
             boolean res = file.delete();
@@ -135,12 +136,12 @@ public class AutomobileWriter {
                 new FileOutputStream(fullPath, true),
                 StandardCharsets.UTF_8))) {
             boolean forHeaders = false;
-            for (Automobile automobile : data.values()) {
+            for (Location location : data.values()) {
                 if (!forHeaders) {
-                    writer.writeNext(automobile.getHeaders().split(";"));
+                    writer.writeNext(location.getHeaders().split(";"));
                     forHeaders = true;
                 }
-                writer.writeNext(automobile.toCSV().split(";"));
+                writer.writeNext(location.toCSV().split(";"));
             }
 
         } catch (Exception e) {
@@ -150,16 +151,16 @@ public class AutomobileWriter {
 
     public void deleteEntry(final int id) {
         String fileName = findId(id);
-        String fullPath = directory + "AutomobilesDB" + File.separator
+        String fullPath = directory + "LocationsDB" + File.separator
                 + fileName;
-        HashMap<Integer, Automobile> tmpMap = readEntries(fullPath);
+        HashMap<Integer, Location> tmpMap = readEntries(fullPath);
         tmpMap.remove(id);
         if (tmpMap.isEmpty()) {
             try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(
                     new FileOutputStream(fullPath, true),
                     StandardCharsets.UTF_8))) {
-                Automobile automobile = new Automobile();
-                writer.writeNext(automobile.getHeaders().split(";"));
+                Location location = new Location();
+                writer.writeNext(location.getHeaders().split(";"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -168,13 +169,12 @@ public class AutomobileWriter {
     }
 
     public void modifyEntry(final int id,
-                            final Automobile newAutomobile) {
+                            final Location newLocation) {
         String fileName = findId(id);
-        String fullPath = directory + "AutomobilesDB"
+        String fullPath = directory + "LocationsDB"
                 + File.separator + fileName;
-        HashMap<Integer, Automobile> tmpMap = readEntries(fullPath);
-        tmpMap.put(id, newAutomobile);
+        HashMap<Integer, Location> tmpMap = readEntries(fullPath);
+        tmpMap.put(id, newLocation);
         rewriteFile(fullPath, tmpMap);
     }
 }
-

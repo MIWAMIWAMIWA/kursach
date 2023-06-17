@@ -9,31 +9,28 @@ import lombok.*;
 @AllArgsConstructor
 public class Automobile {
     public static final String HEADERS =
-            "id; model; address;endOfRent;Problems";
+            "id; model; startOfRent;endOfRent";
     private Integer id;
     private String model;
-    private String address;
+    private String startOfRent;
     private String endOfRent;
-    private String problems;
 
     public String getHeaders() {
         return HEADERS;
     }
 
-    public String toSCV() {
+    public String toCSV() {
         return getId() + ";"
                 + getModel() + ";"
-                + getAddress() + ";"
-                + getEndOfRent() + ";"
-                + getProblems();
+                + getStartOfRent() + ";"
+                + getEndOfRent();
 
     }
 
     public Automobile(final String[] data) {
         id = Integer.parseInt(data[0]);
         model = data[1];
-        address = data[2];
+        startOfRent = data[2];
         endOfRent = data[3];
-        problems = data[4];
     }
 }

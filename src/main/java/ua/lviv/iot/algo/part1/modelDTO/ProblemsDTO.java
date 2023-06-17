@@ -9,10 +9,12 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AutomobileDTO {
+public class ProblemsDTO {
     private int id;
-    private String model;
-    private String startOfRent;
-    private String endOfRent;
+    private int idOfCar;
+    private String dateOfProblem;
 
+    private String description;
+
+    private boolean paidFine;
 }
