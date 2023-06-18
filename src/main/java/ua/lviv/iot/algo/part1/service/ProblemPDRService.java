@@ -79,10 +79,10 @@ public class ProblemPDRService {
         }
     }
 
-    public boolean hasIdWith(final int id) {
+    public boolean hasIdWith(final int problemId) {
         boolean result = false;
         for (HashMap<Integer, ProblemPDR> tmpMap : problems.values()) {
-            if (tmpMap.containsKey(id)) {
+            if (tmpMap.containsKey(problemId)) {
                 result = true;
                 break;
             }

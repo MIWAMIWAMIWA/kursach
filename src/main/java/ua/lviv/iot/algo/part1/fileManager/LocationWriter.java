@@ -3,7 +3,6 @@ package ua.lviv.iot.algo.part1.fileManager;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
-import ua.lviv.iot.algo.part1.model.Automobile;
 import ua.lviv.iot.algo.part1.model.Location;
 
 import java.io.*;

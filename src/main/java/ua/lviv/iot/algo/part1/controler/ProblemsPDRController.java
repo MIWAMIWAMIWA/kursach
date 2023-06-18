@@ -45,7 +45,8 @@ public class ProblemsPDRController {
 
     @GetMapping
     public ResponseEntity getAllProblems() {
-        return ResponseEntity.ok(formatProblems(problemService.giveAll()));
+        return ResponseEntity.ok(
+                formatProblems(problemService.giveAll()));
     }
 
     @GetMapping(path = "/{id}")

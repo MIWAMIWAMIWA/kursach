@@ -35,7 +35,10 @@ class AutomobileWriterTest {
 
     private final static String pathForId = "src" + File.separator
             + "test" + File.separator
-            + "resources" + File.separator + "id.txt";
+            + "resources"
+            + File.separator
+            +"AutomobilesDB"+ File.separator
+            + "id.txt";
 
     @AfterEach
     public void preDestroy() {
@@ -46,10 +49,10 @@ class AutomobileWriterTest {
     @Test
     void writeAutomobile() {
         automobileWriter.writeAutomobile(new Automobile(
-                1, "BMW", "st.Zelena", "2022-06-07", "speeding ticket"
+                1, "BMW", "2010-01-04", "2022-06-07"
         ));
         automobileWriter.writeAutomobile(new Automobile(
-                2, "Miwa", "st.Central", "2026-10-07", "none"
+                2, "Audi", "2015-01-04", "2026-10-07"
         ));
         try {
             assertTrue(FileUtils.contentEquals(new File(pathForAutomobiles),
@@ -98,10 +101,10 @@ class AutomobileWriterTest {
     @Test
     void readEntries() {
         HashMap<Integer, Automobile> expMap = new HashMap<>();
-        expMap.put(1, new Automobile(1, "BMW", "st.Zelena"
-                , "2022-06-07", "speeding ticket"));
-        expMap.put(2, new Automobile(2, "Miwa",
-                "st.Central", "2026-10-07", "none"));
+        expMap.put(1, new Automobile(1, "BMW", "2010-01-04"
+                , "2022-06-07"));
+        expMap.put(2, new Automobile(2, "Audi",
+                "2015-01-04", "2026-10-07"));
         HashMap<Integer, Automobile> resMap = automobileWriter.readEntries(
                 automobileWriter.getDirectory() + "expected"
                         + File.separator + "writeAutomobiles.csv");
@@ -127,19 +130,19 @@ class AutomobileWriterTest {
     @Test
     void rewriteFile() {
         automobileWriter.writeAutomobile(new Automobile(
-                1, "BMW", "st.Zelena", "2022-06-07", "speeding ticket"
+                1, "BMW", "2010-01-04", "2022-06-07"
         ));
         automobileWriter.writeAutomobile(new Automobile(
-                2, "Miwa", "st.Central", "2026-10-07", "none"
+                2, "Audi", "2015-01-04", "2026-10-07"
         ));
         automobileWriter.writeAutomobile(new Automobile(
-                3, "Audi", "st.South", "2023-11-17", "none"
+                3, "Audi", "2010-01-01", "2023-11-17"
         ));
         HashMap<Integer, Automobile> tmpMap = new HashMap<>();
-        tmpMap.put(1, new Automobile(1, "BMW", "st.Zelena"
-                , "2022-06-07", "speeding ticket"));
-        tmpMap.put(2, new Automobile(2, "Miwa",
-                "st.Central", "2026-10-07", "none"));
+        tmpMap.put(1, new Automobile(1, "BMW", "2010-01-04"
+                , "2022-06-07"));
+        tmpMap.put(2, new Automobile(2, "Audi",
+                "2015-01-04", "2026-10-07"));
         automobileWriter.rewriteFile(pathForAutomobiles, tmpMap);
         try {
             assertTrue(FileUtils.contentEquals(new File(pathForAutomobiles),
