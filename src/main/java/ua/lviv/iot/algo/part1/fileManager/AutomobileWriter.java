@@ -134,12 +134,9 @@ public class AutomobileWriter {
         try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(
                 new FileOutputStream(fullPath, true),
                 StandardCharsets.UTF_8))) {
-            boolean forHeaders = false;
+            Automobile auto = new Automobile();
+            writer.writeNext(auto.getHeaders().split(";"));
             for (Automobile automobile : data.values()) {
-                if (!forHeaders) {
-                    writer.writeNext(automobile.getHeaders().split(";"));
-                    forHeaders = true;
-                }
                 writer.writeNext(automobile.toCSV().split(";"));
             }
 
@@ -154,16 +151,6 @@ public class AutomobileWriter {
                 + fileName;
         HashMap<Integer, Automobile> tmpMap = readEntries(fullPath);
         tmpMap.remove(id);
-        if (tmpMap.isEmpty()) {
-            try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(
-                    new FileOutputStream(fullPath, true),
-                    StandardCharsets.UTF_8))) {
-                Automobile automobile = new Automobile();
-                writer.writeNext(automobile.getHeaders().split(";"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         rewriteFile(fullPath, tmpMap);
     }
 

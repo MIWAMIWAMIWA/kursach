@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "63d79fd3-e433-4a51-88e3-e9cd07b34357",
+		"name": "problemsCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27249413"
+	},
+	"item": [
+		{
+			"name": "get all problems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/problems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"problems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get problem",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/problems/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"problems",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add problem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idOfCar\": 3 ,\r\n    \"dateOfProblem\": \"01-04-2005\",\r\n    \"description\" : \"driving drunk\",\r\n    \"paidFine\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/problems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"problems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify problem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idOfCar\": 3 ,\r\n    \"dateOfProblem\": \"01-04-2005\",\r\n    \"description\" : \"murder\",\r\n    \"paidFine\":false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/problems/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"problems",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete problem",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/problems/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"problems",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,25 +1,72 @@
 {
 	"info": {
-		"_postman_id": "5c97eea5-fa1f-4f82-b915-30e00618f8ac",
-		"name": "automobilesColection",
+		"_postman_id": "30ce8626-d3c0-4119-998a-28d678ab9636",
+		"name": "locationCollection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27249413"
 	},
 	"item": [
 		{
-			"name": "get automobile",
+			"name": "get all locations",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/automobiles/1",
+					"raw": "http://localhost:8080/locations",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"automobiles",
+						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add locatiob",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Warsaw\",\r\n    \"carsId\":[1,3]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/locations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/locations/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"locations",
 						"1"
 					]
 				}
@@ -27,52 +74,13 @@
 			"response": []
 		},
 		{
-			"name": "get all automobiles",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/automobiles",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"automobiles"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete automobile",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/automobiles/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"automobiles",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "modify automobile",
+			"name": "modify location",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"model\": \"BMV\",\r\n    \"address\":\"st.Stepana Bandery\",\r\n    \"endOfRent\":\"31.12.25\",\r\n    \"problems\":\"none\"\r\n}",
+					"raw": "{\r\n    \"name\":\"Kyiv\",\r\n    \"carsId\":[4,5,6]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -80,43 +88,35 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/automobiles/7",
+					"raw": "http://localhost:8080/locations/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"automobiles",
-						"7"
+						"locations",
+						"3"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "add automobile",
+			"name": "delete location",
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"model\": \"Audi\",\r\n    \"address\":\"st.Zelena\",\r\n    \"endOfRent\":\"13.12.99\",\r\n    \"problems\":\"none\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:8080/automobiles",
+					"raw": "http://localhost:8080/locations/20",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"automobiles"
+						"locations",
+						"20"
 					]
 				}
 			},

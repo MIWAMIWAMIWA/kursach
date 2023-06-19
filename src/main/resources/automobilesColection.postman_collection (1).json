@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "5c97eea5-fa1f-4f82-b915-30e00618f8ac",
+		"name": "automobilesColection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27249413"
+	},
+	"item": [
+		{
+			"name": "get automobile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/automobiles/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"automobiles",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all automobiles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/automobiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"automobiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete automobile",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/automobiles/50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"automobiles",
+						"50"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify automobile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"model\": \"BMV\",\r\n    \"startOfRent\":\"01.04.2005\",\r\n    \"endOfRent\":\"31.12.25\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/automobiles/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"automobiles",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add automobile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"model\": \"Audi\",\r\n    \"startOfRent\":\"01.04.2022\",\r\n    \"endOfRent\":\"13.12.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/automobiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"automobiles"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

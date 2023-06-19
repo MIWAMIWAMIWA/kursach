@@ -149,13 +149,10 @@ public class ProblemPDRWriter {
         try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(
                 new FileOutputStream(fullPath, true),
                 StandardCharsets.UTF_8))) {
-            boolean forHeaders = false;
+            ProblemPDR prob = new ProblemPDR();
+            writer.writeNext(prob.getHeaders().split(";"));
             for (HashMap<Integer, ProblemPDR> tmpMap : data.values()) {
                 for (ProblemPDR problem : tmpMap.values()) {
-                    if (!forHeaders) {
-                        writer.writeNext(problem.getHeaders().split(";"));
-                        forHeaders = true;
-                    }
                     writer.writeNext(problem.toCSV().split(";"));
                 }
             }

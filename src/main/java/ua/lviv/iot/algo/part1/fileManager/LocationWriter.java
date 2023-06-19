@@ -134,12 +134,9 @@ public class LocationWriter {
         try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(
                 new FileOutputStream(fullPath, true),
                 StandardCharsets.UTF_8))) {
-            boolean forHeaders = false;
+            Location loc = new Location();
+            writer.writeNext(loc.getHeaders().split(";"));
             for (Location location : data.values()) {
-                if (!forHeaders) {
-                    writer.writeNext(location.getHeaders().split(";"));
-                    forHeaders = true;
-                }
                 writer.writeNext(location.toCSV().split(";"));
             }
 
