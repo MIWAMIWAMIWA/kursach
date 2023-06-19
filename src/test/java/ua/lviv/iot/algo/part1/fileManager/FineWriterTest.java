@@ -3,8 +3,7 @@ package ua.lviv.iot.algo.part1.fileManager;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ua.lviv.iot.algo.part1.model.Location;
-import ua.lviv.iot.algo.part1.model.ProblemPDR;
+import ua.lviv.iot.algo.part1.model.Fine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,9 +16,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProblemPDRWriterTest {
+class FineWriterTest {
 
-    private final ProblemPDRWriter problemWriter = new ProblemPDRWriter(
+    private final FineWriter problemWriter = new FineWriter(
             "src" + File.separator
                     + "test" + File.separator
                     + "resources" + File.separator);
@@ -53,10 +52,10 @@ class ProblemPDRWriterTest {
 
     @Test
     void writeProblem() {
-        problemWriter.writeProblem(new ProblemPDR(
+        problemWriter.writeFine(new Fine(
                 1,1,"2005-01-04","speeding ticket",true
         ));
-        problemWriter.writeProblem(new ProblemPDR(
+        problemWriter.writeFine(new Fine(
                 2,6,"2015-11-05","driving drunk",false
         ));
         try {
@@ -98,18 +97,18 @@ class ProblemPDRWriterTest {
 
     @Test
     void readEntries() {
-        HashMap<Integer, HashMap<Integer,ProblemPDR>> expMap = new HashMap<>();
-        HashMap<Integer,ProblemPDR> tmp1 = new HashMap<>();
-        HashMap<Integer,ProblemPDR> tmp2 = new HashMap<>();
-        tmp1.put(1,new ProblemPDR(
+        HashMap<Integer, HashMap<Integer, Fine>> expMap = new HashMap<>();
+        HashMap<Integer, Fine> tmp1 = new HashMap<>();
+        HashMap<Integer, Fine> tmp2 = new HashMap<>();
+        tmp1.put(1,new Fine(
                 1,1,"2005-01-04","speeding ticket",true
         ));
-        tmp2.put(2,new ProblemPDR(
+        tmp2.put(2,new Fine(
                 2,6,"2015-11-05","driving drunk",false
         ));
         expMap.put(1,tmp1);
         expMap.put(6,tmp2);
-        HashMap<Integer, HashMap<Integer,ProblemPDR>> resMap =
+        HashMap<Integer, HashMap<Integer, Fine>> resMap =
                 problemWriter.readEntries(forExpected + "writeProblems.csv");
         assertEquals(expMap.keySet(), resMap.keySet());
         for (Integer key : expMap.keySet()) {
@@ -139,24 +138,24 @@ class ProblemPDRWriterTest {
 
     @Test
     void rewriteFile() {
-        HashMap<Integer, HashMap<Integer,ProblemPDR>> map = new HashMap<>();
-        HashMap<Integer,ProblemPDR> tmp1 = new HashMap<>();
-        HashMap<Integer,ProblemPDR> tmp2 = new HashMap<>();
-        tmp1.put(1,new ProblemPDR(
+        HashMap<Integer, HashMap<Integer, Fine>> map = new HashMap<>();
+        HashMap<Integer, Fine> tmp1 = new HashMap<>();
+        HashMap<Integer, Fine> tmp2 = new HashMap<>();
+        tmp1.put(1,new Fine(
                 1,1,"2005-01-04","speeding ticket",true
         ));
-        tmp2.put(2,new ProblemPDR(
+        tmp2.put(2,new Fine(
                 2,6,"2015-11-05","driving drunk",false
         ));
         map.put(1,tmp1);
         map.put(6,tmp2);
-        problemWriter.writeProblem(new ProblemPDR(
+        problemWriter.writeFine(new Fine(
                 1,1,"2005-01-04","speeding ticket",true
         ));
-        problemWriter.writeProblem(new ProblemPDR(
+        problemWriter.writeFine(new Fine(
                 10,10,"2015-01-04","speeding ticket",true
         ));
-        problemWriter.writeProblem(new ProblemPDR(
+        problemWriter.writeFine(new Fine(
                 100,100,"2025-01-04","speeding ticket",true
         ));
         problemWriter.rewriteFile(pathForProblems,map);

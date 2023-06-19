@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProblemPDR {
+public class Fine {
 
     public static final String HEADERS = "id;idOfCar;"
             + "dateOfProblem;description;paidFine";
@@ -37,7 +37,7 @@ public class ProblemPDR {
         return result;
     }
 
-    public ProblemPDR(final String[] data) {
+    public Fine(final String[] data) {
         id = Integer.parseInt(data[0]);
         idOfCar = Integer.parseInt(data[1]);
         dateOfProblem = data[2];

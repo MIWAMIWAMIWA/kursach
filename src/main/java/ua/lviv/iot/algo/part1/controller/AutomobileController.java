@@ -1,6 +1,7 @@
-package ua.lviv.iot.algo.part1.controler;
+package ua.lviv.iot.algo.part1.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ua.lviv.iot.algo.part1.mappers.AutomobileMapper;
 import ua.lviv.iot.algo.part1.model.Automobile;
 import ua.lviv.iot.algo.part1.modelDTO.AutomobileDTO;
 import ua.lviv.iot.algo.part1.service.AutomobileService;
@@ -19,12 +20,8 @@ public class AutomobileController {
     @Autowired
     private AutomobileService automobileService;
 
-    private AutomobileDTO formatAutomobile(final Automobile automobile) {
-        return new AutomobileDTO(automobile.getId(),
-                automobile.getModel(),
-                automobile.getStartOfRent(),
-                automobile.getEndOfRent());
-    }
+    @Autowired
+    private AutomobileMapper automobileMapper;
 
     public static final ResponseEntity OK = ResponseEntity
             .status(HttpStatusCode.valueOf(200)).build();
@@ -36,7 +33,7 @@ public class AutomobileController {
     public ResponseEntity getAllAutomobiles() {
         List<AutomobileDTO> response = new LinkedList<>();
         for (Automobile automobile : automobileService.giveAll()) {
-            response.add(formatAutomobile(automobile));
+            response.add(automobileMapper.map(automobile));
         }
         return ResponseEntity.ok(response);
     }
@@ -47,16 +44,17 @@ public class AutomobileController {
         if (!automobileService.hasAutomobileWith(automobileId)) {
             return FAILURE;
         } else {
-            return ResponseEntity.ok(formatAutomobile(automobileService
+            return ResponseEntity.ok(automobileMapper.map(automobileService
                     .giveAutomobile(automobileId)));
         }
     }
 
     @PostMapping
     public ResponseEntity createAutomobile(
-            final @RequestBody Automobile automobile) {
-        return ResponseEntity.ok(formatAutomobile(
-                automobileService.addAutomobile(automobile)));
+            final @RequestBody AutomobileDTO automobile) {
+        return ResponseEntity.ok(automobileMapper.map(
+                automobileService.addAutomobile(
+                        automobileMapper.map(automobile))));
     }
 
     @DeleteMapping(path = "/{id}")
@@ -65,7 +63,7 @@ public class AutomobileController {
         if (!automobileService.hasAutomobileWith(automobileId)) {
             return FAILURE;
         } else {
-           return ResponseEntity.ok(formatAutomobile(
+           return ResponseEntity.ok(automobileMapper.map(
                    automobileService.deleteAutomobile(automobileId)));
 
         }
@@ -74,9 +72,10 @@ public class AutomobileController {
     @PutMapping(path = "/{id}")
     public ResponseEntity updateAutomobile(
             final @PathVariable("id") int automobileId,
-            final @RequestBody Automobile automobile) {
+            final @RequestBody AutomobileDTO automobile) {
         if (automobileService.hasAutomobileWith(automobileId)) {
-            automobileService.replaceAutomobile(automobile, automobileId);
+            automobileService.replaceAutomobile(
+                    automobileMapper.map(automobile), automobileId);
             return OK;
         } else {
             return FAILURE;

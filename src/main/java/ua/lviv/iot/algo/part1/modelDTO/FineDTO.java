@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProblemsDTO {
+public class FineDTO {
     private int id;
     private int idOfCar;
     private String dateOfProblem;

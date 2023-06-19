@@ -14,5 +14,5 @@ import java.util.List;
 public class LocationDTO {
     private int id;
     private String name;
-    private List<Integer> carsId;
+    private List<AutomobileDTO> carsId;
 }
