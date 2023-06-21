@@ -1,0 +1,5 @@
+"id","idOfCar","dateOfProblem","description","paidFine"
+"1","1","01-04-2005","speeding ticket","1"
+"6","1","01-04-2005","speeding ticket","1"
+"3","3","01-04-2005","murder","0"
+"5","3","01-04-2005","murder","0"
